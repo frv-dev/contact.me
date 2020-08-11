@@ -1,0 +1,36 @@
+version: "3"
+
+services:
+  web:
+    build: .
+    container_name: contactme-web
+    command: sh ./docker/web/entrypoint.sh
+    working_dir: /home/contactme
+    ports:
+      - 8085:80
+    volumes:
+      - .:/home/contactme
+    depends_on:
+      - mailhog
+      - database
+    links:
+      - mailhog
+      - database
+
+  mailhog:
+    image: mailhog/mailhog
+    container_name: contactme-mailhog
+    ports:
+      - 1025:1025
+      - 8025:8025
+
+  database:
+    image: mysql:8
+    container_name: contactme-database
+    volumes:
+      - ./docker/database/mysql:/var/lib/mysql
+    ports:
+      - 3309:3306
+    environment:
+      - MYSQL_DATABASE=contactme
+      - MYSQL_ROOT_PASSWORD=root
