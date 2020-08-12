@@ -35,7 +35,7 @@ Antes de executar a aplicação é preciso ter instalado as seguintes ferramenta
     * Navegador web (Firefox, Google Chrome, etc).
 * Caso não vá usar o docker:
     * PHP 7.4 ou superior;
-    * MySQL ?;
+    * MySQL 8;
     * Mailhog (servidor SMTP falso para testes de envio de e-mail).
 
 ## Executando a Aplicação
@@ -50,7 +50,6 @@ Para o desenvolvimento do projeto foram utilizadas as seguintes tecnologia:
 * PHP 7.4;
 * React;
 * Axios;
-* TypeScript;
 * Node.js;
 * Mailhog;
 
@@ -59,7 +58,7 @@ Para o desenvolvimento do projeto foram utilizadas as seguintes tecnologia:
 <a href="https:/github.com/frv-dev" style="text-decoration: none;">
     <img src="https://avatars3.githubusercontent.com/u/20212780?s=460&u=31b263296ed9edab65b88e8a7ffbe9b29fef0664&v=4" width="100px;" alt=""/>
     <br />
-    <b>&nbsp;&nbsp;Felipe Vieira&nbsp;&nbsp;</b>
+    <b>Felipe Vieira</b>
 </a>
 <br />
 
