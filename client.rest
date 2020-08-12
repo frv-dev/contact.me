@@ -1,0 +1,39 @@
+POST http://localhost:8085/api/send-email HTTP/1.1
+Content-Type: multipart/form-data; boundary=----ContactMeBoundary
+
+------ContactMeBoundary
+Content-Disposition: form-data; name="name"
+Content-Type: text/plain
+
+John Doe
+
+------ContactMeBoundary
+Content-Disposition: form-data; name="email"
+Content-Type: text/plain
+
+john.doe@mail.com
+
+------ContactMeBoundary
+Content-Disposition: form-data; name="phone"
+Content-Type: text/plain
+
++55 (12) 98100-0000
+
+------ContactMeBoundary
+Content-Disposition: form-data; name="message"
+Content-Type: text/plain
+
+Testando a API.
+
+------ContactMeBoundary
+Content-Disposition: form-data; name="image"; filename="storage/app/test-image.png"
+Content-Type: image/png
+
+< ./storage/app/test-image.png
+------ContactMeBoundary--
+
+------ContactMeBoundary
+Content-Disposition: form-data; name="ip"
+Content-Type: text/plain
+
+192.168.0.1
