@@ -17,7 +17,7 @@ john.doe@mail.com
 Content-Disposition: form-data; name="phone"
 Content-Type: text/plain
 
-+55 (12) 98100-0000
+(12) 98100-0000
 
 ------ContactMeBoundary
 Content-Disposition: form-data; name="message"
