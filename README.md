@@ -49,6 +49,7 @@ Para o desenvolvimento do projeto foram utilizadas as seguintes tecnologia:
 * Laravel 7;
 * PHP 7.4;
 * React;
+* TypeScript;
 * Axios;
 * Node.js;
 * Mailhog;

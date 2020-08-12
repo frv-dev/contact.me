@@ -11,6 +11,7 @@
   },
   "devDependencies": {
     "@babel/preset-react": "^7.0.0",
+    "@babel/preset-typescript": "^7.10.4",
     "axios": "^0.19",
     "bootstrap": "^4.0.0",
     "cross-env": "^7.0",
@@ -22,6 +23,12 @@
     "react-dom": "^16.2.0",
     "resolve-url-loader": "^3.1.0",
     "sass": "^1.15.2",
-    "sass-loader": "^8.0.0"
+    "sass-loader": "^8.0.0",
+    "typescript": "^3.9.7"
+  },
+  "dependencies": {
+    "@types/react": "^16.9.46",
+    "@types/react-dom": "^16.9.8",
+    "laravel-mix-react-typescript-extension": "^1.0.3"
   }
 }

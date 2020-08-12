@@ -1,5 +1,7 @@
 const mix = require('laravel-mix');
 
+require('laravel-mix-react-typescript-extension');
+
 /*
  |--------------------------------------------------------------------------
  | Mix Asset Management
@@ -11,5 +13,5 @@ const mix = require('laravel-mix');
  |
  */
 
-mix.react('resources/js/app.js', 'public/js')
+mix.reactTypeScript('resources/js/app.ts', 'public/js')
   .sass('resources/sass/app.scss', 'public/css');
