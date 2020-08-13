@@ -11,7 +11,7 @@ interface IMailService
      *
      * @param array $to
      * @param Mailable $email
-     * @return void
+     * @return bool|null
      */
-    public function sendEmail(array $to, Mailable $email);
+    public function sendEmail(array $to, Mailable $email): ?bool;
 }

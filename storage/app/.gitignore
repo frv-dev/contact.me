@@ -2,3 +2,5 @@
 !public/
 !.gitignore
 !test-image.png
+!contact/
+!contact/.gitkeep

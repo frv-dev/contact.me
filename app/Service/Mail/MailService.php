@@ -10,8 +10,9 @@ class MailService implements IMailService
     /**
      * @inheritDoc
      */
-    public function sendEmail(array $to, Mailable $email)
+    public function sendEmail(array $to, Mailable $email): ?bool
     {
-        return Mail::to($to)->send($email);
+        Mail::to($to)->send($email);
+        return true;
     }
 }
