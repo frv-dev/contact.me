@@ -7,6 +7,7 @@ use App\Mail\ContactMessage;
 use App\Service\Mail\IMailService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Validation\ValidationException;
 
 class ContactController extends Controller
 {
@@ -15,7 +16,14 @@ class ContactController extends Controller
         IContactRepository $contactRepository,
         IMailService $mailService
     ): JsonResponse {
-        $data = $request->all();
+        $data = $request->validate([
+            'name' => ['required'],
+            'email' => ['required', 'email'],
+            'phone' => ['required', 'regex:/(\(?\d{2}\)?\s)?(\d{4,5}\-?\d{4})/i'],
+            'message' => ['required'],
+            'ip' => ['required', 'regex:/\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}/i'],
+            'file' => ['required', 'mimes:pdf,doc,docx,odt,txt', 'file', 'max:500'],
+        ]);
 
         $contact = $contactRepository->saveMessage([
             IContactRepository::SAVE_MESSAGE_NAME => $data['name'],
