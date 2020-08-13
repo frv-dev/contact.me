@@ -18,7 +18,7 @@ class CreateContactTable extends Migration
             $table->id();
             $table->string('name', 255);
             $table->string('email', 255);
-            $table->string('phone', 32);
+            $table->string('phone', 15);
             $table->text('message');
             $table->string('file_path', 255);
             $table->string('ip', 15);
