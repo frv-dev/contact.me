@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Repository\Contact\IContactRepository;
+use App\Repository\Contact\IContactRepository;
 use App\Mail\ContactMessage;
 use App\Service\Mail\IMailService;
 use App\Service\Mail\MailException;
