@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Builder\IJsonResponseBuilder;
 use App\Repository\Contact\IContactRepository;
 use App\Mail\ContactMessage;
 use App\Service\Mail\IMailService;
@@ -15,14 +16,15 @@ class ContactController extends Controller
     public function sendMessage(
         Request $request,
         IContactRepository $contactRepository,
-        IMailService $mailService
+        IMailService $mailService,
+        IJsonResponseBuilder $responseBuilder
     ): JsonResponse {
         $data = $request->validate([
-            'name' => ['required'],
-            'email' => ['required', 'email'],
-            'phone' => ['required', 'regex:/(\(?\d{2}\)?\s)?(\d{4,5}\-?\d{4})/i'],
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'email', 'string', 'max:255'],
+            'phone' => ['required', 'regex:/(\(?\d{2}\)?\s)?(\d{4,5}\-?\d{4})/i', 'string', 'max:15'],
             'message' => ['required'],
-            'ip' => ['required', 'regex:/\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}/i'],
+            'ip' => ['required', 'regex:/\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}/i', 'string', 'max:15'],
             'file' => ['required', 'mimes:pdf,doc,docx,odt,txt', 'file', 'max:500'],
         ]);
 
@@ -33,7 +35,12 @@ class ContactController extends Controller
             (strlen($fileExtension) + 1) * (-1)
         );
         $completeFileName = "{$fileName}_" . uniqid() . ".{$fileExtension}";
-        $request->file('file')->storeAs('./contact', $completeFileName);
+
+        $completeFileNameLength = strlen($completeFileName);
+        if ($completeFileNameLength > 255) {
+            $start = $completeFileNameLength - 255;
+            $completeFileName = substr($completeFileName, $start);
+        }
 
         $contact = $contactRepository->saveMessage([
             IContactRepository::SAVE_MESSAGE_NAME => $data['name'],
@@ -48,15 +55,19 @@ class ContactController extends Controller
             throw new PDOException('Cannot save the message in database.');
         }
 
-        if (is_null($mailService->sendEmail([env('MAIL_FROM_ADDRESS')], new ContactMessage($contact)))) {
+        $request->file('file')->storeAs('./contact', $completeFileName);
+
+        if (is_null($mailService->sendEmail([env('MAIL_TO_ADDRESS')], new ContactMessage($contact)))) {
             throw new MailException('Error to send e-mail');
         }
 
-        return response()->json([
-            'error' => false,
-            'data' => [
-                'message' => 'Comunicado enviado com sucesso!',
-            ],
-        ]);
+        return $responseBuilder->build(
+            false,
+            'Comunicado enviado com sucesso!',
+            null,
+            null,
+            null,
+            200
+        );
     }
 }
