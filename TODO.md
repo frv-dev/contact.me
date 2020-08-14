@@ -1,0 +1,5 @@
+- [] Basic auth na API;
+- [] Container com o PHP MyAdmin;
+- [] Container com o doc da API;
+- [] Tratamento de erros no retorno da API no front;
+- [] Terminar o README.md

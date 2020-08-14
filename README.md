@@ -1,3 +1,7 @@
+<div align="center">
+    <img src="./public/logo.png" width="200px" />
+</div>
+
 <h1 align="center">CONTACT.ME</h1>
 
 <p align="center">A maneira mais simples de você ter o seu formulário de contato em minutos com PHP.</p>
