@@ -14,15 +14,21 @@ class ContactMessage extends Mailable
     use SerializesModels;
 
     public Contact $contact;
+    private string $pathToFile;
+    private string $fileName;
+    private string $mimeType;
 
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct(Contact $contact)
+    public function __construct(Contact $contact, string $pathToFile, string $fileName, string $mimeType)
     {
         $this->contact = $contact;
+        $this->pathToFile = $pathToFile;
+        $this->fileName = $fileName;
+        $this->mimeType = $mimeType;
     }
 
     /**
@@ -33,6 +39,9 @@ class ContactMessage extends Mailable
     public function build()
     {
         return $this->view('emails.contact.message')
-            ->text('emails.contact.message_plain');
+            ->text('emails.contact.message_plain')
+            ->attachFromStorage($this->pathToFile, $this->fileName, [
+                'mime' => $this->mimeType,
+            ]);
     }
 }

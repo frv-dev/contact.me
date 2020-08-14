@@ -26,7 +26,7 @@ class ContactMessageTest extends TestCase
 
     public function testBuildMessageHtmlRender(): void
     {
-        $contactMessage = new ContactMessage($this->contact);
+        $contactMessage = new ContactMessage($this->contact, './500_exact.txt', '500_exact.txt', 'text/plain');
 
         $actual = $contactMessage->build()->render();
         $expected = view('emails.contact.message', ['contact' => $this->contact])->render();
@@ -36,7 +36,7 @@ class ContactMessageTest extends TestCase
 
     public function testBuildMessageReturn(): void
     {
-        $contactMessage = new ContactMessage($this->contact);
+        $contactMessage = new ContactMessage($this->contact, './500_exact.txt', '500_exact.txt', 'text/plain');
 
         $actual = $contactMessage->build();
         $expected = ContactMessage::class;

@@ -29,6 +29,7 @@ class ContactController extends Controller
         ]);
 
         $fileExtension = $request->file('file')->getClientOriginalExtension();
+        $mimeType = $request->file('file')->getMimeType();
         $fileName = substr(
             $request->file('file')->getClientOriginalName(),
             0,
@@ -56,8 +57,14 @@ class ContactController extends Controller
         }
 
         $request->file('file')->storeAs('./contact', $completeFileName);
+        $pathToFile = "./contact/{$completeFileName}";
 
-        if (is_null($mailService->sendEmail([env('MAIL_TO_ADDRESS')], new ContactMessage($contact)))) {
+        if (
+            is_null($mailService->sendEmail(
+                [env('MAIL_TO_ADDRESS')],
+                new ContactMessage($contact, $pathToFile, $completeFileName, $mimeType)
+            ))
+        ) {
             throw new MailException('Error to send e-mail');
         }
 
