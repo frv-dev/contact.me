@@ -19,13 +19,35 @@ class ContactController extends Controller
         IMailService $mailService,
         IJsonResponseBuilder $responseBuilder
     ): JsonResponse {
+        /**
+         * EMBORA NÃO SEJA IDEAL COLOCAR COMENTÁRIOS COMO ESTE NO MEIO
+         * DO CÓDIGO, ESTE COMENTÁRIO ESTÁ RELACIONADO AO TESTE TÉCNICO
+         * PROPOSTO PELA EMPRESA, NESTE FOI INFORMADO QUE DEVERIA SER
+         * ENVIADO UM ARQUIVO DE, NO MÁXIMO, 500kb COM b MINÚSCULO,
+         * POR NÃO SABER SE FOI UM ERRO OU PROPOSITAL EU CONSIDEREI
+         * KILOBITS (Kb) E NÃO KILOBYTES (KB), LOGO O ARQUIVO TERÁ NO MÁXIMO
+         * O SEGUINTE VALOR:
+         *
+         * 500Kb / 8 = 62.5KB
+         * 62.5KB * 1024 = 64000B
+         *
+         * SEGUE ESTÁ INFORMAÇÃO PARA IDENTIFICAR QUE, CASO SEJA KILOBYTES,
+         * FOI UMA ESCOLHA PARA SEGUIR O QUE O TESTE TÉCNICO ESTAVA PEDINDO
+         * E NÃO UM ERRO DE CÁLCULO.
+         *
+         * NOS TESTES UNITÁRIOS DO PHP UNIT TEM UM TESTE PARA O ENVIO E
+         * VALIDAÇÃO DO ARQUIVO COM 64000B E 64001B NO QUAL É POSSÍVEL
+         * VERIFICAR QUE O LIMITE REALMENTE É DE 64000B.
+         *
+         * ATT: FELIPE RENAN VIEIRA
+         */
         $data = $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'email', 'string', 'max:255'],
             'phone' => ['required', 'regex:/^(\(?\d{2}\)?\s)?(\d{4,5}\-?\d{4})$/i', 'string', 'max:15'],
             'message' => ['required'],
             'ip' => ['required', 'regex:/^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}$/i', 'string', 'max:15'],
-            'file' => ['required', 'mimes:pdf,doc,docx,odt,txt', 'file', 'max:500'],
+            'file' => ['required', 'mimes:pdf,doc,docx,odt,txt', 'file', 'max:62.5'],
         ]);
 
         $fileExtension = $request->file('file')->getClientOriginalExtension();

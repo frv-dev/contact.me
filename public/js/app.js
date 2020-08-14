@@ -66692,12 +66692,12 @@ function Contact() {
               throw 'O tipo do arquivo é inválido.';
 
             case 14:
-              if (!(file.files.item(0).size > 512000)) {
+              if (!(file.files.item(0).size > 64000)) {
                 _context.next = 16;
                 break;
               }
 
-              throw 'O arquivo não pode ser maior do que 500KB';
+              throw 'O arquivo não pode ser maior do que 500Kb/62,5KB/64000B';
 
             case 16:
               if (phone.match(_regex_phoneRegex__WEBPACK_IMPORTED_MODULE_4__["default"])) {

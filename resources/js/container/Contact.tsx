@@ -37,7 +37,29 @@ function Contact() {
       if(!fileTypes.includes(file!.files!.item(0)!.type)) {
         throw 'O tipo do arquivo é inválido.';
       }
-      if(file!.files!.item(0)!.size > 512000) throw 'O arquivo não pode ser maior do que 500KB';
+      /**
+       * EMBORA NÃO SEJA IDEAL COLOCAR COMENTÁRIOS COMO ESTE NO MEIO
+       * DO CÓDIGO, ESTE COMENTÁRIO ESTÁ RELACIONADO AO TESTE TÉCNICO
+       * PROPOSTO PELA EMPRESA, NESTE FOI INFORMADO QUE DEVERIA SER
+       * ENVIADO UM ARQUIVO DE, NO MÁXIMO, 500kb COM b MINÚSCULO,
+       * POR NÃO SABER SE FOI UM ERRO OU PROPOSITAL EU CONSIDEREI
+       * KILOBITS (Kb) E NÃO KILOBYTES (KB), LOGO O ARQUIVO TERÁ NO MÁXIMO
+       * O SEGUINTE VALOR:
+       *
+       * 500Kb / 8 = 62.5KB
+       * 62.5KB * 1024 = 64000B
+       *
+       * SEGUE ESTÁ INFORMAÇÃO PARA IDENTIFICAR QUE, CASO SEJA KILOBYTES,
+       * FOI UMA ESCOLHA PARA SEGUIR O QUE O TESTE TÉCNICO ESTAVA PEDINDO
+       * E NÃO UM ERRO DE CÁLCULO.
+       *
+       * NOS TESTES UNITÁRIOS DO PHP UNIT TEM UM TESTE PARA O ENVIO E
+       * VALIDAÇÃO DO ARQUIVO COM 64000B E 64001B NO QUAL É POSSÍVEL
+       * VERIFICAR QUE O LIMITE REALMENTE É DE 64000B.
+       *
+       * ATT: FELIPE RENAN VIEIRA
+       */
+      if(file!.files!.item(0)!.size > 64000) throw 'O arquivo não pode ser maior do que 500Kb/62,5KB/64000B';
       if (!phone!.match(phoneRegex)) throw 'O telefone é inválido.';
       if (!email!.match(emailRegex)) throw 'O e-mail é inválido.';
 
