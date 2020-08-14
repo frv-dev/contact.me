@@ -66627,67 +66627,168 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-dom */ "./node_modules/react-dom/index.js");
 /* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react_dom__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var _service_get_getIp__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../service/get/getIp */ "./resources/js/service/get/getIp.ts");
+/* harmony import */ var _regex_phoneRegex__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../regex/phoneRegex */ "./resources/js/regex/phoneRegex.ts");
+/* harmony import */ var _regex_emailRegex__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../regex/emailRegex */ "./resources/js/regex/emailRegex.ts");
+/* harmony import */ var _service_post_sendMessage__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../service/post/sendMessage */ "./resources/js/service/post/sendMessage.ts");
 
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
-function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 
-function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
 
-function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
-
-function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
-
-function _iterableToArrayLimit(arr, i) { if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return; var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
-
-function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
 
 
 function Contact() {
-  var _useState = Object(react__WEBPACK_IMPORTED_MODULE_1__["useState"])(''),
-      _useState2 = _slicedToArray(_useState, 2),
-      ip = _useState2[0],
-      setIp = _useState2[1];
+  var nameRef = Object(react__WEBPACK_IMPORTED_MODULE_1__["useRef"])(null);
+  var emailRef = Object(react__WEBPACK_IMPORTED_MODULE_1__["useRef"])(null);
+  var phoneRef = Object(react__WEBPACK_IMPORTED_MODULE_1__["useRef"])(null);
+  var messageRef = Object(react__WEBPACK_IMPORTED_MODULE_1__["useRef"])(null);
+  var fileRef = Object(react__WEBPACK_IMPORTED_MODULE_1__["useRef"])(null);
+  var fileTypes = ['text/plain', 'application/pdf', 'application/msword', 'application/vnd.oasis.opendocument.text'];
 
-  Object(react__WEBPACK_IMPORTED_MODULE_1__["useEffect"])(function () {
-    getIp();
-  }, []);
-
-  function getIp() {
-    return _getIp.apply(this, arguments);
+  function submit(_x) {
+    return _submit.apply(this, arguments);
   }
 
-  function _getIp() {
-    _getIp = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
-      var response;
+  function _submit() {
+    _submit = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(event) {
+      var _nameRef$current, _emailRef$current, _phoneRef$current, _messageRef$current, ip, name, email, phone, message, file, data, response;
+
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
         while (1) {
           switch (_context.prev = _context.next) {
             case 0:
-              _context.next = 2;
+              event.preventDefault();
+              _context.prev = 1;
+              _context.next = 4;
               return Object(_service_get_getIp__WEBPACK_IMPORTED_MODULE_3__["default"])();
 
-            case 2:
-              response = _context.sent;
-              setIp(response);
-
             case 4:
+              ip = _context.sent;
+              name = (_nameRef$current = nameRef.current) === null || _nameRef$current === void 0 ? void 0 : _nameRef$current.value;
+              email = (_emailRef$current = emailRef.current) === null || _emailRef$current === void 0 ? void 0 : _emailRef$current.value;
+              phone = (_phoneRef$current = phoneRef.current) === null || _phoneRef$current === void 0 ? void 0 : _phoneRef$current.value;
+              message = (_messageRef$current = messageRef.current) === null || _messageRef$current === void 0 ? void 0 : _messageRef$current.value;
+              file = fileRef.current;
+
+              if (![name, email, phone, message, file].includes(undefined)) {
+                _context.next = 12;
+                break;
+              }
+
+              throw 'Preencha todos os campos.';
+
+            case 12:
+              if (fileTypes.includes(file.files.item(0).type)) {
+                _context.next = 14;
+                break;
+              }
+
+              throw 'O tipo do arquivo é inválido.';
+
+            case 14:
+              if (!(file.files.item(0).size > 512000)) {
+                _context.next = 16;
+                break;
+              }
+
+              throw 'O arquivo não pode ser maior do que 500KB';
+
+            case 16:
+              if (phone.match(_regex_phoneRegex__WEBPACK_IMPORTED_MODULE_4__["default"])) {
+                _context.next = 18;
+                break;
+              }
+
+              throw 'O telefone é inválido.';
+
+            case 18:
+              if (email.match(_regex_emailRegex__WEBPACK_IMPORTED_MODULE_5__["default"])) {
+                _context.next = 20;
+                break;
+              }
+
+              throw 'O e-mail é inválido.';
+
+            case 20:
+              data = new FormData();
+              data.append('name', name);
+              data.append('email', email);
+              data.append('phone', phone);
+              data.append('message', message);
+              data.append('file', file.files.item(0));
+              data.append('ip', ip);
+              _context.next = 29;
+              return Object(_service_post_sendMessage__WEBPACK_IMPORTED_MODULE_6__["default"])(data);
+
+            case 29:
+              response = _context.sent;
+              alert(response.message);
+              _context.next = 37;
+              break;
+
+            case 33:
+              _context.prev = 33;
+              _context.t0 = _context["catch"](1);
+              alert('Erro');
+              console.log(_context.t0);
+
+            case 37:
             case "end":
               return _context.stop();
           }
         }
-      }, _callee);
+      }, _callee, null, [[1, 33]]);
     }));
-    return _getIp.apply(this, arguments);
+    return _submit.apply(this, arguments);
   }
 
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("h1", null, "Contact.me - ", ip));
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("h1", null, "Contact.me"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("form", {
+    onSubmit: submit
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("label", {
+    htmlFor: "name"
+  }, "Nome: "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("input", {
+    type: "text",
+    id: "name",
+    ref: nameRef,
+    required: true
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("label", {
+    htmlFor: "email"
+  }, "E-mail: "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("input", {
+    type: "email",
+    id: "email",
+    ref: emailRef,
+    required: true
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("label", {
+    htmlFor: "phone"
+  }, "Telefone: "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("input", {
+    type: "text",
+    id: "phone",
+    ref: phoneRef,
+    required: true,
+    maxLength: 15
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("label", {
+    htmlFor: "message"
+  }, "Mensagem: "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("textarea", {
+    id: "message",
+    ref: messageRef,
+    required: true
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("label", {
+    htmlFor: "file"
+  }, "Arquivo: "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("input", {
+    type: "file",
+    id: "file",
+    ref: fileRef,
+    required: true,
+    accept: ".doc,.pdf,.docx,.odt,.txt"
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("button", {
+    type: "submit"
+  }, "Enviar")));
 }
 
 /* harmony default export */ __webpack_exports__["default"] = (Contact);
@@ -66695,6 +66796,19 @@ function Contact() {
 if (document.getElementById('contact')) {
   react_dom__WEBPACK_IMPORTED_MODULE_2___default.a.render( /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(Contact, null), document.getElementById('contact'));
 }
+
+/***/ }),
+
+/***/ "./resources/js/regex/emailRegex.ts":
+/*!******************************************!*\
+  !*** ./resources/js/regex/emailRegex.ts ***!
+  \******************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = (/^[a-z0-9.]+@[a-z0-9]+\.[a-z]+((\.[a-z]+)+)?$/);
 
 /***/ }),
 
@@ -66708,6 +66822,19 @@ if (document.getElementById('contact')) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = (/\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}/);
+
+/***/ }),
+
+/***/ "./resources/js/regex/phoneRegex.ts":
+/*!******************************************!*\
+  !*** ./resources/js/regex/phoneRegex.ts ***!
+  \******************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = (/^(\(?\d{2}\)?\s)?(\d{4,5}\-?\d{4})$/);
 
 /***/ }),
 
@@ -66765,6 +66892,80 @@ function _ref() {
         }
       }
     }, _callee, null, [[0, 8]]);
+  }));
+  return _ref.apply(this, arguments);
+}
+
+/***/ }),
+
+/***/ "./resources/js/service/post/sendMessage.ts":
+/*!**************************************************!*\
+  !*** ./resources/js/service/post/sendMessage.ts ***!
+  \**************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+
+/* harmony default export */ __webpack_exports__["default"] = (function (_x) {
+  return _ref.apply(this, arguments);
+});
+
+function _ref() {
+  _ref = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(data) {
+    var response;
+    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+      while (1) {
+        switch (_context.prev = _context.next) {
+          case 0:
+            _context.prev = 0;
+            _context.next = 3;
+            return axios__WEBPACK_IMPORTED_MODULE_1___default.a.post('http://localhost:8085/api/send-email', data);
+
+          case 3:
+            response = _context.sent;
+
+            if ('data' in response) {
+              _context.next = 6;
+              break;
+            }
+
+            throw response;
+
+          case 6:
+            if (!response.data.error) {
+              _context.next = 8;
+              break;
+            }
+
+            throw response;
+
+          case 8:
+            return _context.abrupt("return", response.data);
+
+          case 11:
+            _context.prev = 11;
+            _context.t0 = _context["catch"](0);
+            console.log(_context.t0);
+            return _context.abrupt("return", _context.t0);
+
+          case 15:
+          case "end":
+            return _context.stop();
+        }
+      }
+    }, _callee, null, [[0, 11]]);
   }));
   return _ref.apply(this, arguments);
 }
