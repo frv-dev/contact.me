@@ -168,7 +168,7 @@ function Contact() {
               </div>
 
               <div className="form-group">
-                <label htmlFor="file">Arquivo (62.5 KB no máximo): <span className="text-danger">*</span></label>
+                <label htmlFor="file">Arquivo Anexo (62.5 KB no máximo): <span className="text-danger">*</span></label>
                 <input
                   className="form-control"
                   type="file"
