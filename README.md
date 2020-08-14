@@ -147,6 +147,8 @@ Criar um banco de dados com o nome `contactme` pelo seguinte comando através de
 
 Executar o comando `php artisan migrate` para criar as tabelas no banco de dados.
 
+Execute `php -S 0.0.0.0:80 -t public` ou `php artisan serve`.
+
 Agora é só acessar o link da sua aplicação para começar a usá-la.
 
 No banco de dados você verá a tabela `contact` com todos os dados que são enviados pelo formulário.
