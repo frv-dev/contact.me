@@ -22,9 +22,9 @@ class ContactController extends Controller
         $data = $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'email', 'string', 'max:255'],
-            'phone' => ['required', 'regex:/(\(?\d{2}\)?\s)?(\d{4,5}\-?\d{4})/i', 'string', 'max:15'],
+            'phone' => ['required', 'regex:/^(\(?\d{2}\)?\s)?(\d{4,5}\-?\d{4})$/i', 'string', 'max:15'],
             'message' => ['required'],
-            'ip' => ['required', 'regex:/\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}/i', 'string', 'max:15'],
+            'ip' => ['required', 'regex:/^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}$/i', 'string', 'max:15'],
             'file' => ['required', 'mimes:pdf,doc,docx,odt,txt', 'file', 'max:500'],
         ]);
 

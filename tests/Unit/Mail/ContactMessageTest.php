@@ -4,7 +4,6 @@ namespace Tests\Unit\Mail;
 
 use App\Mail\ContactMessage;
 use App\Model\Contact;
-use Mockery;
 use Tests\TestCase;
 
 class ContactMessageTest extends TestCase
@@ -15,7 +14,7 @@ class ContactMessageTest extends TestCase
     {
         parent::setUp();
 
-        $this->contact = Mockery::mock('alias:' . Contact::class);
+        $this->contact = $this->mock('alias:' . Contact::class);
 
         /** @var Contact $contact */
         $this->contact->name = 'John Doe';
