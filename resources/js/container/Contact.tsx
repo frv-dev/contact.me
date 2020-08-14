@@ -6,6 +6,8 @@ import emailRegex from '../regex/emailRegex';
 import sendMessage from '../service/post/sendMessage';
 import style from './Contact.style';
 
+const logo = require('../../../public/logo.png');
+
 function Contact() {
   const nameRef = useRef<HTMLInputElement>(null);
   const emailRef = useRef<HTMLInputElement>(null);
@@ -119,7 +121,11 @@ function Contact() {
       <div className="container py-4">
         <div className="row">
           <div className="col-lg-8 offset-lg-2 col-md-10 offset-md-1 col-12 p-5" style={style.card}>
+            <div className="text-center mb-3">
+              <img src={logo} alt="Contact.me" style={style.logo} />
+            </div>
             <h1 className="text-center mb-3">Contact.me</h1>
+            <hr/>
             {
               message.text &&
               <p className={

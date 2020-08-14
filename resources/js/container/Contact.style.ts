@@ -4,6 +4,9 @@ const style = {
   body: {
     backgroundColor: '#ECEBF1',
   } as CSSProperties,
+  logo: {
+    width: 200,
+  } as CSSProperties,
   card: {
     border: '1px solid rgba(0,0,0,.3)',
     borderRadius: 5,

@@ -67188,6 +67188,17 @@ module.exports = function(module) {
 
 /***/ }),
 
+/***/ "./public/logo.png":
+/*!*************************!*\
+  !*** ./public/logo.png ***!
+  \*************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "/images/logo.png?c95d43bcb358c077a6ff06f3ecae47cc";
+
+/***/ }),
+
 /***/ "./resources/js/app.ts":
 /*!*****************************!*\
   !*** ./resources/js/app.ts ***!
@@ -67272,6 +67283,9 @@ var style = {
   body: {
     backgroundColor: '#ECEBF1'
   },
+  logo: {
+    width: 200
+  },
   card: {
     border: '1px solid rgba(0,0,0,.3)',
     borderRadius: 5,
@@ -67327,6 +67341,8 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
+
+var logo = __webpack_require__(/*! ../../../public/logo.png */ "./public/logo.png");
 
 function Contact() {
   var nameRef = Object(react__WEBPACK_IMPORTED_MODULE_1__["useRef"])(null);
@@ -67494,9 +67510,15 @@ function Contact() {
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
     className: "col-lg-8 offset-lg-2 col-md-10 offset-md-1 col-12 p-5",
     style: _Contact_style__WEBPACK_IMPORTED_MODULE_7__["default"].card
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("h1", {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
     className: "text-center mb-3"
-  }, "Contact.me"), message.text && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("p", {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("img", {
+    src: logo,
+    alt: "Contact.me",
+    style: _Contact_style__WEBPACK_IMPORTED_MODULE_7__["default"].logo
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("h1", {
+    className: "text-center mb-3"
+  }, "Contact.me"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("hr", null), message.text && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("p", {
     className: 'text-center' + (message.type === 'success' ? ' text-success' : ' text-danger')
   }, message.text), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("form", {
     onSubmit: submit
