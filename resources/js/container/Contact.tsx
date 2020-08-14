@@ -140,13 +140,6 @@ function Contact() {
             </div>
             <h1 className="text-center mb-3">Contact.me</h1>
             <hr/>
-            {
-              message.text &&
-              <p className={
-                'text-center' +
-                (message.type === 'success' ? ' text-success' : ' text-danger')
-              }>{message.text}</p>
-            }
             <form onSubmit={submit}>
               <div className="form-group">
                 <label htmlFor="name">Nome: <span className="text-danger">*</span></label>
@@ -192,6 +185,14 @@ function Contact() {
                   accept=".doc,.pdf,.docx,.odt,.txt"
                 />
               </div>
+
+              {
+                message.text &&
+                <p className={
+                  'text-center' +
+                  (message.type === 'success' ? ' text-success' : ' text-danger')
+                }>{message.text}</p>
+              }
 
               <div className="row">
                 <div className="col-12 d-flex justify-content-center">
