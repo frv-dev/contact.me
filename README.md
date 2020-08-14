@@ -101,7 +101,7 @@ Nele você verá a tabela `contact` com todos os dados que são enviados pelo fo
 
 OBS: O contêiner de banco de dados foi feito apenas para testes, esteja ciente de que, ao destruir o contêiner todos os dados desaparecerão, para evitar essa situação em produção será necessário criar um volume no arquivo docker-compose.yml para salvar os dados do banco de dados fora do container.
 
-## Executando a Aplicação com o Docker
+## Executando a Aplicação sem o Docker
 
 Para executar a aplicação é preciso ter um servidor web (vou usar o que é provido pelo php, php -S), um servidor de banco de dados MySQL e um servidor de e-mail, pode ser usado o do gmail ou um servidor false, por exemplo.
 
