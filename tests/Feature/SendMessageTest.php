@@ -36,7 +36,7 @@ class SendMessageTest extends TestCase
 
     public function testSendMessage(): void
     {
-        $response = $this->post('/api/send-email', [
+        $response = $this->post('/api/send-message', [
             'name' => 'John Doe',
             'email' => 'john.doe@mail.com',
             'phone' => '(12) 98100-0000',
@@ -50,7 +50,7 @@ class SendMessageTest extends TestCase
 
     public function testSendMessageLargerFile(): void
     {
-        $response = $this->post('/api/send-email', [
+        $response = $this->post('/api/send-message', [
             'name' => 'John Doe',
             'email' => 'john.doe@mail.com',
             'phone' => '(12) 98100-0000',
@@ -64,7 +64,7 @@ class SendMessageTest extends TestCase
 
     public function testSendMessageInvalidPhone(): void
     {
-        $response = $this->post('/api/send-email', [
+        $response = $this->post('/api/send-message', [
             'name' => 'John Doe',
             'email' => 'john.doe@mail.com',
             'phone' => '(12) 98100-00000',
@@ -78,7 +78,7 @@ class SendMessageTest extends TestCase
 
     public function testSendMessageInvalidIp(): void
     {
-        $response = $this->post('/api/send-email', [
+        $response = $this->post('/api/send-message', [
             'name' => 'John Doe',
             'email' => 'john.doe@mail.com',
             'phone' => '(12) 98100-0000',
@@ -92,7 +92,7 @@ class SendMessageTest extends TestCase
 
     public function testSendMessageInvalidEmail(): void
     {
-        $response = $this->post('/api/send-email', [
+        $response = $this->post('/api/send-message', [
             'name' => 'John Doe',
             'email' => 'john.doe@mail.',
             'phone' => '(12) 98100-0000',

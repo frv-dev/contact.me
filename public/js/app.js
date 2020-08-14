@@ -66931,7 +66931,7 @@ function _ref() {
           case 0:
             _context.prev = 0;
             _context.next = 3;
-            return axios__WEBPACK_IMPORTED_MODULE_1___default.a.post('http://localhost:8085/api/send-email', data);
+            return axios__WEBPACK_IMPORTED_MODULE_1___default.a.post('http://localhost:8085/api/send-message', data);
 
           case 3:
             response = _context.sent;

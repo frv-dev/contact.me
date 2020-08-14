@@ -14,5 +14,5 @@ use Illuminate\Support\Facades\Route;
 |
 */
 Route::middleware('exceptions')->group(function () {
-    Route::post('/send-email', 'ContactController@sendMessage');
+    Route::post('/send-message', 'ContactController@sendMessage');
 });
