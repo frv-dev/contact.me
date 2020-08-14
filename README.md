@@ -15,9 +15,9 @@
 
 * [Status do Projeto](#status-do-projeto)
 * [Features](#features)
-* [Pré-requisitos](#pre-requisitos)
-* [Executando a Aplicação com o Docker](#executando-a-aplicacao-com-o-docker)
-* [Executando a Aplicação sem o Docker](#executando-a-aplicacao-sem-o-docker)
+* [Pré-requisitos](#pré-requisitos)
+* [Executando a Aplicação com o Docker](#executando-a-aplicação-com-o-docker)
+* [Executando a Aplicação sem o Docker](#executando-a-aplicação-sem-o-docker)
 * [Executando os Testes](#executando-os-testes)
 * [Tecnologias Utilizadas](#tecnologias-utilizadas)
 * [Autor](#autor)
