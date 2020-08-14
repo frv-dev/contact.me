@@ -5,6 +5,8 @@ import phoneRegex from '../regex/phoneRegex';
 import emailRegex from '../regex/emailRegex';
 import sendMessage from '../service/post/sendMessage';
 import style from './Contact.style';
+import { IResponse } from '../service/api';
+import { AxiosResponse } from 'axios';
 
 const logo = require('../../../public/logo.png');
 
@@ -97,20 +99,32 @@ function Contact() {
 
       setMessage({
         type: 'success',
-        text: response.message,
+        text: response.message!,
       })
     } catch (error) {
-      if(typeof error === 'string') setMessage({
-        type: 'error',
-        text: error,
-      });
-      else {
+      let errorMessage = '';
+
+      if(!('response' in error)) {
+        errorMessage = 'Erro desconhecido, tente novamente ou entre em contato com o adminstrador do sistema.';
+      }
+      if(!('data' in error.response)) {
+        errorMessage = 'Erro desconhecido, tente novamente ou entre em contato com o adminstrador do sistema.';
+      }
+
+      if(errorMessage) {
         setMessage({
           type: 'error',
-          text: 'Erro desconhecido, tente novamente ou entre em contato com o adminstrador do sistema.',
+          text: errorMessage,
         });
-        console.log(error);
+        return;
       }
+
+      const newError = error.response as AxiosResponse<IResponse<null>>;
+
+      setMessage({
+        type: 'error',
+        text: newError.data.message!,
+      });
     } finally {
       setSending(false);
     }

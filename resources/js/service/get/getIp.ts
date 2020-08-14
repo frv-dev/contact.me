@@ -7,7 +7,6 @@ export default async function (): Promise<string> {
     const result = response.data.match(ipRegex);
     return result![0];
   } catch (error) {
-    console.log(error);
     return error;
   }
 }

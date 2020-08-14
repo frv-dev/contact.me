@@ -67384,7 +67384,7 @@ function Contact() {
 
   function _submit() {
     _submit = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(event) {
-      var _nameRef$current, _emailRef$current, _phoneRef$current, _messageRef$current, ip, name, email, phone, _message, file, data, response;
+      var _nameRef$current, _emailRef$current, _phoneRef$current, _messageRef$current, ip, name, email, phone, _message, file, data, response, errorMessage, newError;
 
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
         while (1) {
@@ -67469,34 +67469,51 @@ function Contact() {
                 type: 'success',
                 text: response.message
               });
-              _context.next = 39;
+              _context.next = 46;
               break;
 
             case 36:
               _context.prev = 36;
               _context.t0 = _context["catch"](4);
-              if (typeof _context.t0 === 'string') setMessage({
-                type: 'error',
-                text: _context.t0
-              });else {
-                setMessage({
-                  type: 'error',
-                  text: 'Erro desconhecido, tente novamente ou entre em contato com o adminstrador do sistema.'
-                });
-                console.log(_context.t0);
+              errorMessage = '';
+
+              if (!('response' in _context.t0)) {
+                errorMessage = 'Erro desconhecido, tente novamente ou entre em contato com o adminstrador do sistema.';
               }
 
-            case 39:
-              _context.prev = 39;
-              setSending(false);
-              return _context.finish(39);
+              if (!('data' in _context.t0.response)) {
+                errorMessage = 'Erro desconhecido, tente novamente ou entre em contato com o adminstrador do sistema.';
+              }
 
-            case 42:
+              if (!errorMessage) {
+                _context.next = 44;
+                break;
+              }
+
+              setMessage({
+                type: 'error',
+                text: errorMessage
+              });
+              return _context.abrupt("return");
+
+            case 44:
+              newError = _context.t0.response;
+              setMessage({
+                type: 'error',
+                text: newError.data.message
+              });
+
+            case 46:
+              _context.prev = 46;
+              setSending(false);
+              return _context.finish(46);
+
+            case 49:
             case "end":
               return _context.stop();
           }
         }
-      }, _callee, null, [[4, 36, 39, 42]]);
+      }, _callee, null, [[4, 36, 46, 49]]);
     }));
     return _submit.apply(this, arguments);
   }
@@ -67647,6 +67664,29 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/service/api.ts":
+/*!*************************************!*\
+  !*** ./resources/js/service/api.ts ***!
+  \*************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
+
+/* harmony default export */ __webpack_exports__["default"] = ((function () {
+  var baseUrlElement = document.getElementById('base-url');
+  var baseUrl = baseUrlElement.value;
+  return axios__WEBPACK_IMPORTED_MODULE_0___default.a.create({
+    baseURL: baseUrl,
+    timeout: 10000
+  });
+})());
+
+/***/ }),
+
 /***/ "./resources/js/service/get/getIp.ts":
 /*!*******************************************!*\
   !*** ./resources/js/service/get/getIp.ts ***!
@@ -67692,10 +67732,9 @@ function _ref() {
           case 8:
             _context.prev = 8;
             _context.t0 = _context["catch"](0);
-            console.log(_context.t0);
             return _context.abrupt("return", _context.t0);
 
-          case 12:
+          case 11:
           case "end":
             return _context.stop();
         }
@@ -67718,8 +67757,7 @@ function _ref() {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _api__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../api */ "./resources/js/service/api.ts");
 
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
@@ -67738,43 +67776,36 @@ function _ref() {
       while (1) {
         switch (_context.prev = _context.next) {
           case 0:
-            _context.prev = 0;
-            _context.next = 3;
-            return axios__WEBPACK_IMPORTED_MODULE_1___default.a.post('http://localhost:8085/api/send-message', data);
+            _context.next = 2;
+            return _api__WEBPACK_IMPORTED_MODULE_1__["default"].post('/send-message', data);
 
-          case 3:
+          case 2:
             response = _context.sent;
 
             if ('data' in response) {
-              _context.next = 6;
+              _context.next = 5;
               break;
             }
 
             throw response;
 
-          case 6:
+          case 5:
             if (!response.data.error) {
-              _context.next = 8;
+              _context.next = 7;
               break;
             }
 
             throw response;
 
-          case 8:
+          case 7:
             return _context.abrupt("return", response.data);
 
-          case 11:
-            _context.prev = 11;
-            _context.t0 = _context["catch"](0);
-            console.log(_context.t0);
-            return _context.abrupt("return", _context.t0);
-
-          case 15:
+          case 8:
           case "end":
             return _context.stop();
         }
       }
-    }, _callee, null, [[0, 11]]);
+    }, _callee);
   }));
   return _ref.apply(this, arguments);
 }

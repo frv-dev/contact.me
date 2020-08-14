@@ -10,6 +10,7 @@
         <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
     </head>
     <body>
+        <input type="hidden" id="base-url" value={{ env('API_URL') }}/>
         <div id="contact"></div>
         <script src="./js/app.js"></script>
     </body>
