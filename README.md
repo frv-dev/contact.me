@@ -155,7 +155,9 @@ No banco de dados você verá a tabela `contact` com todos os dados que são env
 
 Para executar os testes com pelo docker execute `docker exec contactme-web-php php artisan test`.
 
-Para executar os testes sem o docker execte `php artisan test`.
+Para executar os testes sem o docker execute `php artisan test`.
+
+Para testar uma requisição manualmente tem o arquivo `client.rest` no projeto que pode ser executado através dessa extensão do VSCode: https://marketplace.visualstudio.com/items?itemName=humao.rest-client.
 
 ## Tecnologias Utilizadas
 
