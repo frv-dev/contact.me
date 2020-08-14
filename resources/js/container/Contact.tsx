@@ -1,9 +1,10 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useRef } from 'react';
 import ReactDOM from 'react-dom';
 import getIp from '../service/get/getIp';
 import phoneRegex from '../regex/phoneRegex';
 import emailRegex from '../regex/emailRegex';
 import sendMessage from '../service/post/sendMessage';
+import style from './Contact.style';
 
 function Contact() {
   const nameRef = useRef<HTMLInputElement>(null);
@@ -12,6 +13,9 @@ function Contact() {
   const messageRef = useRef<HTMLTextAreaElement>(null);
   const fileRef = useRef<HTMLInputElement>(null);
 
+  const [message, setMessage] = useState<{type: null|'error'|'success', text: string}>({ type: null, text: '' });
+  const [sending, setSending] = useState(false);
+
   const fileTypes = [
     'text/plain',
     'application/pdf',
@@ -19,8 +23,24 @@ function Contact() {
     'application/vnd.oasis.opendocument.text'
   ];
 
+  function clear(): void {
+    nameRef.current!.value = '';
+    emailRef.current!.value = '';
+    phoneRef.current!.value = '';
+    messageRef.current!.value = '';
+    fileRef.current!.value = '';
+
+    setMessage({
+      type: null,
+      text: '',
+    });
+  }
+
   async function submit(event: React.FormEvent<HTMLFormElement>): Promise<void> {
     event.preventDefault();
+
+    if(sending) return;
+    setSending(true);
 
     try {
       const ip = await getIp();
@@ -72,46 +92,102 @@ function Contact() {
       data.append('ip', ip);
 
       const response = await sendMessage(data);
-      alert(response.message);
+
+      setMessage({
+        type: 'success',
+        text: response.message,
+      })
     } catch (error) {
-      alert('Erro');
-      console.log(error);
+      if(typeof error === 'string') setMessage({
+        type: 'error',
+        text: error,
+      });
+      else {
+        setMessage({
+          type: 'error',
+          text: 'Erro desconhecido, tente novamente ou entre em contato com o adminstrador do sistema.',
+        });
+        console.log(error);
+      }
+    } finally {
+      setSending(false);
     }
   }
 
   return (
-    <div>
-      <h1>Contact.me</h1>
-      <form onSubmit={submit}>
-        <label htmlFor="name">Nome: </label>
-        <input type="text" id="name" ref={nameRef} required={true} />
+    <div style={style.body}>
+      <div className="container py-4">
+        <div className="row">
+          <div className="col-lg-8 offset-lg-2 col-md-10 offset-md-1 col-12 p-5" style={style.card}>
+            <h1 className="text-center mb-3">Contact.me</h1>
+            {
+              message.text &&
+              <p className={
+                'text-center' +
+                (message.type === 'success' ? ' text-success' : ' text-danger')
+              }>{message.text}</p>
+            }
+            <form onSubmit={submit}>
+              <div className="form-group">
+                <label htmlFor="name">Nome: <span className="text-danger">*</span></label>
+                <input className="form-control" type="text" id="name" ref={nameRef} required={true} />
+              </div>
 
-        <label htmlFor="email">E-mail: </label>
-        <input type="email" id="email" ref={emailRef} required={true} />
+              <div className="form-group">
+                <label htmlFor="email">E-mail: <span className="text-danger">*</span></label>
+                <input className="form-control" type="email" id="email" ref={emailRef} required={true} />
+              </div>
 
-        <label htmlFor="phone">Telefone: </label>
-        <input
-          type="text"
-          id="phone"
-          ref={phoneRef}
-          required={true}
-          maxLength={15}
-        />
+              <div className="form-group">
+                <label htmlFor="phone">Telefone: <span className="text-danger">*</span></label>
+                <input
+                  className="form-control"
+                  type="text"
+                  id="phone"
+                  ref={phoneRef}
+                  required={true}
+                  maxLength={15}
+                />
+              </div>
 
-        <label htmlFor="message">Mensagem: </label>
-        <textarea id="message" ref={messageRef} required={true} />
+              <div className="form-group">
+                <label htmlFor="message">Mensagem: <span className="text-danger">*</span></label>
+                <textarea
+                  className="form-control"
+                  id="message"
+                  ref={messageRef}
+                  required={true}
+                  rows={5}
+                />
+              </div>
 
-        <label htmlFor="file">Arquivo: </label>
-        <input
-          type="file"
-          id="file"
-          ref={fileRef}
-          required={true}
-          accept=".doc,.pdf,.docx,.odt,.txt"
-        />
+              <div className="form-group">
+                <label htmlFor="file">Arquivo (62.5 KB no máximo): <span className="text-danger">*</span></label>
+                <input
+                  className="form-control"
+                  type="file"
+                  id="file"
+                  ref={fileRef}
+                  required={true}
+                  accept=".doc,.pdf,.docx,.odt,.txt"
+                />
+              </div>
 
-        <button type="submit">Enviar</button>
-      </form>
+              <div className="row">
+                <div className="col-12 d-flex justify-content-center">
+                  <button className="btn btn-secondary" type="button" onClick={clear} disabled={sending}>
+                    LIMPAR
+                  </button>
+                  &nbsp;
+                  <button className="btn btn-success" type="submit" disabled={sending}>
+                    {sending ? 'ENVIANDO...' : 'ENVIAR'}
+                  </button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
